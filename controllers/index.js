@@ -4,7 +4,7 @@ import { adminId, bot, dbMongooseUri } from '../utils/index.js';
 import { Compliments, Users } from '../schemas/index.js';
 
 const notifyAdmin = (message) => {
-  bot.sendMessage(adminId, message);
+  adminId && bot.sendMessage(adminId, message);
 };
 
 const handleError = (message) => {
