@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 import express from 'express';
-import { appPort } from './utils/index.js';
+import { appPort, notifyAdmin } from './utils/index.js';
 
 const app = express();
 
@@ -10,6 +10,9 @@ app.get('/', (req, res) => {
 
 import './events/index.js';
 
-app.listen(appPort, () => console.log(`Server works on ${appPort}`));
+app.listen(appPort, () => {
+  notifyAdmin('Вітаю, я прокинувся!');
+  console.log(`Server works on ${appPort}`);
+});
 
-import './utils/cron.js';
+import './cron/index.js';

@@ -1,4 +1,4 @@
-import { bot } from '../utils/index.js';
+import bot from '../bot/index.js';
 import { addUser, help, removeUser, sendCompliment } from '../controllers/index.js';
 
 const events = {

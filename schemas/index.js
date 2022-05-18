@@ -1,20 +1,4 @@
-import mongoose from 'mongoose';
-import { dbComplimentsCollection, dbUsersCollection } from '../utils/index.js';
-
-const { Schema } = mongoose;
-
-const complimentSchema = new Schema({
-  value: String
-});
-
-const userSchema = new Schema({
-  telegramId: String,
-  firstName: String,
-  lastName: String,
-  userName: String
-});
-
-const Users = mongoose.model(dbUsersCollection, userSchema);
-const Compliments = mongoose.model(dbComplimentsCollection, complimentSchema);
+import Users from './user.schema.js';
+import Compliments from './compliment.schema.js';
 
 export { Users, Compliments };
