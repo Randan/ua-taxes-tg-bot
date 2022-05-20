@@ -7,44 +7,38 @@ import { ICompliment, IUser } from '../interfaces';
 const sendComplimentToAllUsers = (): void => {
   mongoose.connect(dbMongooseUri);
 
-  let complimentsCount: number = 0;
+  Compliments.countDocuments({})
+    .then((count: number): void => {
+      Users.find({}, (err: CallbackError, docs: IUser[]): void => {
+        if (err) {
+          handleError(JSON.stringify(err));
+          return;
+        }
 
-  Compliments.countDocuments({}, (err: CallbackError, count: number): void => {
-    if (err) {
-      handleError(JSON.stringify(err));
-      return;
-    }
-    complimentsCount = count;
-  });
+        if (docs) {
+          docs.forEach((user: IUser): void => {
+            const random = Math.floor(Math.random() * count);
 
-  Users.find({}, (err: CallbackError, docs: IUser[]): void => {
-    if (err) {
-      handleError(JSON.stringify(err));
-      return;
-    }
+            Compliments.findOne(
+              {},
+              (err: CallbackError, doc: ICompliment): void => {
+                if (err) {
+                  handleError(JSON.stringify(err));
+                  return;
+                }
 
-    if (!complimentsCount) return;
+                bot.sendMessage(user.telegramId, doc.value);
+              }
+            ).skip(random);
+          });
 
-    if (docs) {
-      docs.forEach((user: IUser): void => {
-        const random = Math.floor(Math.random() * complimentsCount);
-
-        Compliments.findOne(
-          {},
-          (err: CallbackError, doc: ICompliment): void => {
-            if (err) {
-              handleError(JSON.stringify(err));
-              return;
-            }
-
-            bot.sendMessage(user.telegramId, doc.value);
-          }
-        ).skip(random);
+          notifyAdmin(lib.allUsersGotCompliment());
+        }
       });
-
-      notifyAdmin(lib.allUsersGotCompliment());
-    }
-  });
+    })
+    .catch((err: CallbackError) => {
+      handleError(JSON.stringify(err));
+    });
 };
 
 export default sendComplimentToAllUsers;

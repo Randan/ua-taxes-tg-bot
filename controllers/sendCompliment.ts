@@ -19,14 +19,8 @@ const sendCompliment = (msg: Message): void => {
     }
 
     if (docs) {
-      Compliments.countDocuments(
-        {},
-        (err: CallbackError, count: number): void => {
-          if (err) {
-            handleError(JSON.stringify(err));
-            return;
-          }
-
+      Compliments.countDocuments({})
+        .then((count: number): void => {
           const random = Math.floor(Math.random() * count);
 
           Compliments.findOne(
@@ -41,8 +35,10 @@ const sendCompliment = (msg: Message): void => {
               notifyAdmin(lib.userGotCompliment(msg));
             }
           ).skip(random);
-        }
-      );
+        })
+        .catch((err: CallbackError) => {
+          handleError(JSON.stringify(err));
+        });
     } else {
       bot.sendMessage(id, lib.userNotExists());
     }
