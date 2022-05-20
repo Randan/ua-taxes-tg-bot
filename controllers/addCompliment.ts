@@ -34,7 +34,7 @@ const addCompliment = (msg: Message): void => {
             }
 
             bot.sendMessage(id, lib.complimentAccepted());
-            notifyAdmin(lib.complimentAcceptedNotify(msg));
+            notifyAdmin(lib.complimentAcceptedNotify(msg, compliment));
           }
         );
       }

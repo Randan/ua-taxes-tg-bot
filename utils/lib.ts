@@ -14,7 +14,7 @@ export const complimentAccepted = () => 'Поняв-приняв, дякую ;)'
 
 export const complimentAcceptedNotify = (
   msg: Message,
-  compliment?: string
+  compliment: string
 ): string => {
   if (!msg.from) return '';
 
