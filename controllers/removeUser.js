@@ -22,7 +22,7 @@ const removeUser = msg => {
         }
 
         bot.sendMessage(id, `Ну що, ${first_name}! Будемо досвіданькатись? Мені було добре з тобою, приходь ще =)`);
-        notifyAdmin(`${id} ${first_name} більше хоче отримувати компліменти`);
+        notifyAdmin(`[${first_name}](tg://user?id=${id}) більше не хоче отримувати компліменти.`);
       });
     } else {
       bot.sendMessage(id, 'Ми з вами не знайомі. Давайте познайомимось. Напишіть /start');
