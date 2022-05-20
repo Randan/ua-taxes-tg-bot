@@ -31,7 +31,7 @@ const sendCompliment = msg => {
             }
 
             bot.sendMessage(id, doc.value);
-            notifyAdmin(`[${first_name}](tg://user?id=${id}) отримaв(-ла) комплімент`);
+            notifyAdmin(`${id} ${first_name} отримaв(-ла) комплімент`);
           });
       });
     } else {

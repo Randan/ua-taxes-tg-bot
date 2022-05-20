@@ -1,4 +1,5 @@
-import getTaggedUser from './getTaggedUser.js';
+import notifyAdmin from './notifyAdmin.js';
+import handleError from './handleError.js';
 import {
   adminId,
   appPort,
@@ -8,8 +9,6 @@ import {
   dbUsersCollection,
   timezone
 } from './envVars.js';
-import handleError from './handleError.js';
-import notifyAdmin from './notifyAdmin.js';
 
 export {
   adminId,
@@ -18,7 +17,6 @@ export {
   dbMongooseUri,
   dbUrl,
   dbUsersCollection,
-  getTaggedUser,
   handleError,
   notifyAdmin,
   timezone
