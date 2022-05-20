@@ -16,7 +16,7 @@ const help = msg => {
     '/compliment - Якщо хочешь комплімент прямо тут і зараз.'
   );
 
-  notifyAdmin(`${id} ${first_name} попросив(-ла) про допомогу`);
+  notifyAdmin(`${first_name} (@${username}) попросив(-ла) про допомогу`);
 };
 
 export default help;

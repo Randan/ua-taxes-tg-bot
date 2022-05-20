@@ -28,7 +28,7 @@ const addUser = msg => {
         `- ID: ${user.telegramId}\n` +
         `- First Name: ${user.firstName}\n` +
         `- Last Name: ${user.lastName}\n` +
-        `- User Name: ${user.userName}\n`
+        `- User Name: @${user.userName}\n`
       );
     } else {
       Users.create(user, (err, doc) => {
