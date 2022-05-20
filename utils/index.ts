@@ -1,5 +1,5 @@
-import notifyAdmin from './notifyAdmin.js';
-import handleError from './handleError.js';
+import notifyAdmin from './notifyAdmin';
+import handleError from './handleError';
 import {
   adminId,
   appPort,
@@ -8,7 +8,8 @@ import {
   dbUrl,
   dbUsersCollection,
   timezone
-} from './envVars.js';
+} from './envVars';
+import * as lib from './lib';
 
 export {
   adminId,
@@ -19,5 +20,6 @@ export {
   dbUsersCollection,
   handleError,
   notifyAdmin,
+  lib,
   timezone
 };

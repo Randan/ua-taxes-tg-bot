@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import cron from 'node-cron';
-import { sendComplimentToAllUsers } from '../controllers/index.js';
+import { sendComplimentToAllUsers } from '../controllers';
 
 const cronOptions = {
   scheduled: true,

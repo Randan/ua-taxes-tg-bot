@@ -5,11 +5,17 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'standard'
+    'standard',
+    'prettier'
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
+  plugins: [
+    '@typescript-eslint'
+  ],
   rules: {
     'no-multiple-empty-lines': ['error', { max: 1 }],
     'no-trailing-spaces': 'error',
