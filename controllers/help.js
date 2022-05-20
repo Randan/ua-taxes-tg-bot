@@ -2,7 +2,7 @@ import bot from '../bot/index.js';
 import { notifyAdmin } from '../utils/index.js';
 
 const help = msg => {
-  const { id, first_name } = msg.from;
+  const { id, first_name, username } = msg.from;
 
   bot.sendMessage(
     id,

@@ -4,7 +4,7 @@ import { dbMongooseUri, handleError, notifyAdmin } from '../utils/index.js';
 import { Users } from '../schemas/index.js';
 
 const removeUser = msg => {
-  const { id, first_name } = msg.from;
+  const { id, first_name, username } = msg.from;
 
   mongoose.connect(dbMongooseUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
