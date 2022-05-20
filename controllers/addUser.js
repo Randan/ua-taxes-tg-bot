@@ -23,7 +23,13 @@ const addUser = msg => {
 
     if (docs) {
       bot.sendMessage(user.telegramId, 'Так я і так відправляю тобі компліменти. Тобі мало? Звернись до розробника!');
-      notifyAdmin(`${id} ${first_name} ${last_name} ${username} теж хоче отримувати компліменти`);
+      notifyAdmin(
+        `${first_name} (@${username}) теж хоче отримувати компліменти:\n` +
+        `- ID: ${user.telegramId}\n` +
+        `- First Name: ${user.firstName}\n` +
+        `- Last Name: ${user.lastName}\n` +
+        `- User Name: ${user.userName}\n`
+      );
     } else {
       Users.create(user, (err, doc) => {
         if (err) {
