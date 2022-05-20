@@ -40,9 +40,9 @@ const sendComplimentToAllUsers = (): void => {
             bot.sendMessage(user.telegramId, doc.value);
           }
         ).skip(random);
-
-        notifyAdmin(lib.allUsersGotCompliment());
       });
+
+      notifyAdmin(lib.allUsersGotCompliment());
     }
   });
 };
