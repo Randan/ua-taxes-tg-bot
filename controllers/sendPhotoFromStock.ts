@@ -10,7 +10,7 @@ import { IUnsplashResponse, IUser } from '../interfaces';
 const sendPhotoFromStock = async (
   msg: Message,
   query: string,
-  caption: string
+  caption?: string
 ): Promise<void> => {
   if (!msg.from) return;
 
@@ -32,9 +32,7 @@ const sendPhotoFromStock = async (
       bot.sendPhoto(id, photo.data.urls.regular, {
         caption,
       });
-      notifyAdmin(
-        lib.userGotPhoto(msg, query)
-      );
+      notifyAdmin(lib.userGotPhoto(msg, query));
     }
   } catch (err: unknown) {
     handleError(JSON.stringify(err));

@@ -5,6 +5,7 @@ import removeUser from './removeUser';
 import sendCompliment from './sendCompliment';
 import sendComplimentAndFlowerToAllUsers from './sendComplimentAndFlowerToAllUsers';
 import sendPhotoFromStock from './sendPhotoFromStock';
+import getPhotoFromQuery from './getPhotoFromQuery';
 
 export {
   addCompliment,
@@ -14,4 +15,5 @@ export {
   sendCompliment,
   sendComplimentAndFlowerToAllUsers,
   sendPhotoFromStock,
+  getPhotoFromQuery,
 };

@@ -3,6 +3,7 @@ import bot from '../bot';
 import {
   addCompliment,
   addUser,
+  getPhotoFromQuery,
   help,
   removeUser,
   sendCompliment,
@@ -21,6 +22,7 @@ const events: Record<string, RegExp> = {
   flower: /\/flower/,
   cat: /\/cat/,
   dog: /\/dog/,
+  getPhoto: /\/getPhoto/,
 };
 
 bot.onText(events.help, (msg: Message): void => help(msg));
@@ -34,6 +36,8 @@ bot.onText(events.compliment, (msg: Message): Promise<void> => sendCompliment(ms
 bot.onText(events.complimentToAll, () => sendComplimentAndFlowerToAllUsers());
 
 bot.onText(events.addCompliment, (msg: Message): Promise<void> => addCompliment(msg));
+
+bot.onText(events.getPhoto, (msg: Message): void => getPhotoFromQuery(msg));
 
 bot.onText(
   events.flower,
