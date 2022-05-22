@@ -7,7 +7,9 @@ import {
   dbMongooseUri,
   dbUrl,
   dbUsersCollection,
-  timezone
+  timezone,
+  unsplashAppToken,
+  unsplashUri,
 } from './envVars';
 import * as lib from './lib';
 
@@ -19,7 +21,9 @@ export {
   dbUrl,
   dbUsersCollection,
   handleError,
-  notifyAdmin,
   lib,
-  timezone
+  notifyAdmin,
+  timezone,
+  unsplashAppToken,
+  unsplashUri,
 };
