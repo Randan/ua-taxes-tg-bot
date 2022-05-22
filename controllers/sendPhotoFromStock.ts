@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { Message } from 'node-telegram-bot-api';
 import bot from '../bot';
 import { getPhoto } from '../api';
-import { dbMongooseUri, lib, notifyAdmin } from '../utils';
+import { dbMongooseUri, handleError, lib } from '../utils';
 import { Users } from '../schemas';
 import { IUnsplashResponse, IUser } from '../interfaces';
 
@@ -33,7 +33,7 @@ const sendPhotoFromStock = async (
         caption,
       });
   } catch (err: unknown) {
-    notifyAdmin(JSON.stringify(err));
+    handleError(JSON.stringify(err));
   }
 };
 

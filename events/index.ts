@@ -25,15 +25,15 @@ const events: Record<string, RegExp> = {
 
 bot.onText(events.help, (msg: Message): void => help(msg));
 
-bot.onText(events.start, (msg: Message): void => addUser(msg));
+bot.onText(events.start, (msg: Message): Promise<void> => addUser(msg));
 
-bot.onText(events.stop, (msg: Message): void => removeUser(msg));
+bot.onText(events.stop, (msg: Message): Promise<void> => removeUser(msg));
 
-bot.onText(events.compliment, (msg: Message): void => sendCompliment(msg));
+bot.onText(events.compliment, (msg: Message): Promise<void> => sendCompliment(msg));
 
 bot.onText(events.complimentToAll, () => sendComplimentToAllUsers());
 
-bot.onText(events.addCompliment, (msg: Message): void => addCompliment(msg));
+bot.onText(events.addCompliment, (msg: Message): Promise<void> => addCompliment(msg));
 
 bot.onText(
   events.flower,

@@ -1,5 +1,5 @@
 import bot from '../bot';
-import { adminId } from '.';
+import { adminId } from './';
 
 const notifyAdmin = (message: string): void => {
   adminId && bot.sendMessage(adminId, message);

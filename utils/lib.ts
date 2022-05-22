@@ -26,7 +26,7 @@ export const complimentAcceptedNotify = (
   );
 };
 
-export const userExists =
+export const userExists = (): string =>
   'Так я і так відправляю тобі компліменти. Тобі мало? Звернись до розробника!';
 
 export const userAccepted = (msg: Message): string => {

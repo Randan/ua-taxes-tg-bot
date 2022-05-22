@@ -1,48 +1,40 @@
-import mongoose, { CallbackError } from 'mongoose';
+import mongoose from 'mongoose';
 import { Message } from 'node-telegram-bot-api';
 import bot from '../bot';
 import { dbMongooseUri, handleError, lib, notifyAdmin } from '../utils';
 import { Compliments, Users } from '../schemas';
 import { ICompliment, IUser } from '../interfaces';
 
-const sendCompliment = (msg: Message): void => {
+const sendCompliment = async (msg: Message): Promise<void> => {
   if (!msg.from) return;
 
   const { id } = msg.from;
 
-  mongoose.connect(dbMongooseUri);
+  try {
+    mongoose.connect(dbMongooseUri);
 
-  Users.findOne({ telegramId: id }, (err: CallbackError, docs: IUser): void => {
-    if (err) {
-      handleError(JSON.stringify(err));
+    const user: IUser | null = await Users.findOne({ telegramId: id });
+
+    if (!user) {
+      bot.sendMessage(id, lib.userNotExists());
       return;
     }
 
-    if (docs) {
-      Compliments.countDocuments({})
-        .then((count: number): void => {
-          const random = Math.floor(Math.random() * count);
+    const complimentsCount = await Compliments.countDocuments({});
 
-          Compliments.findOne(
-            {},
-            (err: CallbackError, doc: ICompliment): void => {
-              if (err) {
-                handleError(JSON.stringify(err));
-                return;
-              }
+    if (!complimentsCount) return;
 
-              bot.sendMessage(id, doc.value);
-              notifyAdmin(lib.userGotCompliment(msg));
-            }
-          ).skip(random);
-        })
-        .catch((err: CallbackError) => {
-          handleError(JSON.stringify(err));
-        });
-    } else {
-      bot.sendMessage(id, lib.userNotExists());
+    const random = Math.floor(Math.random() * complimentsCount);
+
+    const compliment: ICompliment | null = await Compliments.findOne({}).skip(random);
+
+    if (compliment) {
+      bot.sendMessage(id, compliment.value);
+      notifyAdmin(lib.userGotCompliment(msg));
     }
-  });
+  } catch (err: unknown) {
+    handleError(JSON.stringify(err));
+  }
 };
 
 export default sendCompliment;
