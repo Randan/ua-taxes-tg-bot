@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { Message } from 'node-telegram-bot-api';
 import bot from '../bot';
 import { getPhoto } from '../api';
-import { dbMongooseUri, handleError, lib } from '../utils';
+import { dbMongooseUri, handleError, lib, notifyAdmin } from '../utils';
 import { Users } from '../schemas';
 import { IUnsplashResponse, IUser } from '../interfaces';
 
@@ -28,10 +28,14 @@ const sendPhotoFromStock = async (
 
     const photo: AxiosResponse<IUnsplashResponse> = await getPhoto(query);
 
-    photo &&
+    if (photo) {
       bot.sendPhoto(id, photo.data.urls.regular, {
         caption,
       });
+      notifyAdmin(
+        lib.userGotPhoto(msg, query)
+      );
+    }
   } catch (err: unknown) {
     handleError(JSON.stringify(err));
   }

@@ -73,8 +73,8 @@ export const help = (msg: Message): string => {
     '/stop - Скажи мені "Па-па"' +
     '/compliment - Якщо хочешь комплімент прямо тут і зараз.' +
     '/flower - Отримай квіточку' +
-    '/cat - Подивитись на котика' +
-    '/dog - Попестити песика'
+    '/cat - Подивись на котика' +
+    '/dog - Попести песика'
   );
 };
 
@@ -115,10 +115,18 @@ export const userGotCompliment = (msg: Message): string => {
   return `${username ? `@${username}` : first_name} отримaв(-ла) комплімент`;
 };
 
-export const userGotFlower = (): string => 'Тримай квіточку';
+export const userGotPhoto = (msg: Message, photoTheme: string): string => {
+  if (!msg.from) return '';
 
-export const userGotCat = (): string => 'Тримай котика';
+  const { first_name, username } = msg.from;
 
-export const userGotDog = (): string => 'Тримай песика';
+  return `${username ? `@${username}` : first_name} отримaв(-ла) світлину на тему "${photoTheme}"`;
+};
+
+export const thereIsFlower = (): string => 'Тримай квіточку';
+
+export const thereIsCat = (): string => 'Тримай котика';
+
+export const thereIsDog = (): string => 'Тримай песика';
 
 export const allUsersGotCompliment = (): string => 'Всі отримали компліменти';

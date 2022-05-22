@@ -38,17 +38,17 @@ bot.onText(events.addCompliment, (msg: Message): Promise<void> => addCompliment(
 bot.onText(
   events.flower,
   (msg: Message): Promise<void> =>
-    sendPhotoFromStock(msg, 'flower', lib.userGotFlower())
+    sendPhotoFromStock(msg, 'flower', lib.thereIsFlower())
 );
 
 bot.onText(
   events.cat,
   (msg: Message): Promise<void> =>
-    sendPhotoFromStock(msg, 'cat', lib.userGotCat())
+    sendPhotoFromStock(msg, 'cat', lib.thereIsCat())
 );
 
 bot.onText(
   events.dog,
   (msg: Message): Promise<void> =>
-    sendPhotoFromStock(msg, 'dog', lib.userGotDog())
+    sendPhotoFromStock(msg, 'dog', lib.thereIsDog())
 );
