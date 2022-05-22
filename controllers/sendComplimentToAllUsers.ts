@@ -1,44 +1,35 @@
-import mongoose, { CallbackError } from 'mongoose';
+import mongoose from 'mongoose';
 import bot from '../bot';
 import { dbMongooseUri, handleError, lib, notifyAdmin } from '../utils';
 import { Compliments, Users } from '../schemas';
 import { ICompliment, IUser } from '../interfaces';
 
-const sendComplimentToAllUsers = (): void => {
-  mongoose.connect(dbMongooseUri);
+const sendComplimentToAllUsers = async (): Promise<void> => {
+  try {
+    mongoose.connect(dbMongooseUri);
 
-  Compliments.countDocuments({})
-    .then((count: number): void => {
-      Users.find({}, (err: CallbackError, docs: IUser[]): void => {
-        if (err) {
-          handleError(JSON.stringify(err));
-          return;
-        }
+    const complimentsCount = await Compliments.countDocuments({});
 
-        if (docs) {
-          docs.forEach((user: IUser): void => {
-            const random = Math.floor(Math.random() * count);
+    if (!complimentsCount) return;
 
-            Compliments.findOne(
-              {},
-              (err: CallbackError, doc: ICompliment): void => {
-                if (err) {
-                  handleError(JSON.stringify(err));
-                  return;
-                }
+    const random = Math.floor(Math.random() * complimentsCount);
 
-                bot.sendMessage(user.telegramId, doc.value);
-              }
-            ).skip(random);
-          });
+    const compliment: ICompliment | null = await Compliments.findOne({}).skip(random);
 
-          notifyAdmin(lib.allUsersGotCompliment());
-        }
-      });
-    })
-    .catch((err: CallbackError) => {
-      handleError(JSON.stringify(err));
+    if (!compliment) return;
+
+    const users: IUser[] | null = await Users.find({});
+
+    if (!users || !users.length) return;
+
+    users.forEach((user: IUser): void => {
+      bot.sendMessage(user.telegramId, compliment.value);
     });
+
+    notifyAdmin(lib.allUsersGotCompliment());
+  } catch (err: unknown) {
+    handleError(JSON.stringify(err));
+  }
 };
 
 export default sendComplimentToAllUsers;

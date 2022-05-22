@@ -26,7 +26,7 @@ export const complimentAcceptedNotify = (
   );
 };
 
-export const userExists =
+export const userExists = (): string =>
   'Так я і так відправляю тобі компліменти. Тобі мало? Звернись до розробника!';
 
 export const userAccepted = (msg: Message): string => {
@@ -112,4 +112,10 @@ export const userGotCompliment = (msg: Message): string => {
   return `${username ? `@${username}` : first_name} отримaв(-ла) комплімент`;
 };
 
-export const allUsersGotCompliment = () => 'Всі отримали компліменти';
+export const userGotFlower = (): string => 'Тримай квіточку';
+
+export const userGotCat = (): string => 'Тримай котика';
+
+export const userGotDog = (): string => 'Тримай песика';
+
+export const allUsersGotCompliment = (): string => 'Всі отримали компліменти';

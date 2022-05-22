@@ -1,4 +1,4 @@
-import { notifyAdmin } from '.';
+import { notifyAdmin } from './';
 
 const handleError = (message: string): void => {
   console.log(message);

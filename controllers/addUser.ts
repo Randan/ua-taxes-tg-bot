@@ -1,46 +1,41 @@
-import mongoose, { CallbackError } from 'mongoose';
+import mongoose from 'mongoose';
 import { Message } from 'node-telegram-bot-api';
 import bot from '../bot';
 import { dbMongooseUri, handleError, lib, notifyAdmin } from '../utils';
 import { Users } from '../schemas';
 import { IUser } from '../interfaces';
 
-const addUser = (msg: Message): void => {
+const addUser = async (msg: Message): Promise<void> => {
   if (!msg.from) return;
 
   const { id, first_name, last_name, username } = msg.from;
 
-  const user: IUser = {
+  const newUser: IUser = {
     telegramId: id,
     firstName: first_name,
     lastName: last_name,
-    userName: username
+    userName: username,
   };
 
-  mongoose.connect(dbMongooseUri);
+  try {
+    mongoose.connect(dbMongooseUri);
 
-  Users.findOne({ telegramId: id }, (err: CallbackError, doc: IUser): void => {
-    if (err) {
-      handleError(JSON.stringify(err));
+    const user: IUser | null = await Users.findOne({ telegramId: id });
+
+    if (user) {
+      bot.sendMessage(id, lib.userExists());
       return;
     }
 
-    if (doc) {
-      bot.sendMessage(user.telegramId, lib.userExists);
-    } else {
-      Users.create(user, (err, doc) => {
-        if (err) {
-          handleError(JSON.stringify(err));
-          return;
-        }
+    const userAddedResponse: IUser = await Users.create(newUser);
 
-        bot.sendMessage(user.telegramId, lib.userAccepted(msg));
-        notifyAdmin(
-          lib.userAcceptedNotify(msg)
-        );
-      });
+    if (userAddedResponse) {
+      bot.sendMessage(id, lib.userAccepted(msg));
+      notifyAdmin(lib.userAcceptedNotify(msg));
     }
-  });
+  } catch (err: unknown) {
+    handleError(JSON.stringify(err));
+  }
 };
 
 export default addUser;
