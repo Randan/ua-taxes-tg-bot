@@ -3,7 +3,7 @@ import addUser from './addUser';
 import help from './help';
 import removeUser from './removeUser';
 import sendCompliment from './sendCompliment';
-import sendComplimentToAllUsers from './sendComplimentToAllUsers';
+import sendComplimentAndFlowerToAllUsers from './sendComplimentAndFlowerToAllUsers';
 import sendPhotoFromStock from './sendPhotoFromStock';
 
 export {
@@ -12,6 +12,6 @@ export {
   help,
   removeUser,
   sendCompliment,
-  sendComplimentToAllUsers,
+  sendComplimentAndFlowerToAllUsers,
   sendPhotoFromStock,
 };

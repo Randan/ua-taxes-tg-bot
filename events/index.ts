@@ -6,7 +6,7 @@ import {
   help,
   removeUser,
   sendCompliment,
-  sendComplimentToAllUsers,
+  sendComplimentAndFlowerToAllUsers,
   sendPhotoFromStock,
 } from '../controllers';
 import { lib } from '../utils';
@@ -31,7 +31,7 @@ bot.onText(events.stop, (msg: Message): Promise<void> => removeUser(msg));
 
 bot.onText(events.compliment, (msg: Message): Promise<void> => sendCompliment(msg));
 
-bot.onText(events.complimentToAll, () => sendComplimentToAllUsers());
+bot.onText(events.complimentToAll, () => sendComplimentAndFlowerToAllUsers());
 
 bot.onText(events.addCompliment, (msg: Message): Promise<void> => addCompliment(msg));
 
