@@ -23,5 +23,7 @@ jobs:
         script: |
           cd /root/projects/compliment-tg-bot
           git pull origin master
+          sudo apt-get update
+          sudo apt-get install -y nodejs npm
           npm install
           pm2 restart compliment-tg-bot
