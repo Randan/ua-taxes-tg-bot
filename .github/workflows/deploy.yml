@@ -11,8 +11,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Install dependencies
-      run: npm install
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v0.1.7
       with:
@@ -24,6 +22,6 @@ jobs:
           cd /root/projects/compliment-tg-bot
           git pull origin master
           sudo apt-get update
-          sudo apt-get install -y nodejs npm
+          sudo apt-get install -y nodejs@v16.19.1 npm
           npm install
           pm2 restart compliment-tg-bot
