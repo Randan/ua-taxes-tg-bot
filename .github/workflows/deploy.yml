@@ -17,6 +17,9 @@ jobs:
       with:
         node-version: '16.x'
 
+    - name: Install PM2
+      run: npm install pm2 -g
+
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v0.1.7
       with:
@@ -28,5 +31,4 @@ jobs:
           cd /root/projects/compliment-tg-bot
           git pull origin master
           npm install
-          npm install pm2 -g
           pm2 restart compliment-tg-bot
