@@ -21,7 +21,7 @@ jobs:
       run: npm install pm2 -g
 
     - name: Deploy to VPS
-      uses: easingthemes/ssh-deploy@v4.1.0
+      uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
@@ -30,5 +30,6 @@ jobs:
         script: |
           cd /root/projects/compliment-tg-bot
           git pull origin master
+          node -v
           npm install
           pm2 restart compliment-tg-bot
