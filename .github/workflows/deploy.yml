@@ -23,5 +23,6 @@ jobs:
           git pull origin master
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
           nvm install v16
+          nvm use 16
           npm install
           pm2 restart compliment-tg-bot
