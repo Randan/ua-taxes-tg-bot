@@ -1,22 +1,27 @@
-name: Deploy to VPS
+name: Deploy
+
 on:
   push:
     branches:
       - master
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Connect to the server
-      uses: appleboy/ssh-action@master
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm install
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v0.19.1
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-    - name: Install packages
-      run:
-        npm install
-    - name: Start the server
-      run: pm2 restart compliment-tg-bot
+        script: |
+          cd /root/projects/compliment-tg-bot
+          git pull origin master
+          npm install
+          pm2 restart compliment-tg-bot
