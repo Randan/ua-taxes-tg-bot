@@ -21,7 +21,7 @@ jobs:
       run: npm install pm2 -g
 
     - name: Deploy to VPS
-      uses: easingthemes/ssh-deploy@v2.1.11
+      uses: easingthemes/ssh-deploy@v4.1.0
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
