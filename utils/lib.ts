@@ -5,7 +5,7 @@ export const webGreetings = () =>
   <h1>Вітаю, я <a href='https://t.me/heWhoMustSendYouComplimentsBot' style='color: #252324;'>ComplimentBot</a>!</h1>
   <h2>Заходь!</h2>`;
 
-export const botWokeUp = () => 'Вітаю, я прокинувся!';
+export const botWokeUp = () => 'Вітаю, я прокинувся! ;)';
 
 export const complimentExists = () =>
   'А такий вже є, придумай інший ¯\\_(ツ)_/¯';
