@@ -29,7 +29,7 @@ const getTaxesCalculations = (msg: Message): void => {
 ЄН - ${formatNumbers(esvCalc)} грн. (${enPercent}%).
 ЄСВ - ${formatNumbers(Number(esv))} грн.
 
-Ваші Налоги на місяць - ${formatNumbers(monthlyTax)} грн.
+Ваші Податки на місяць - ${formatNumbers(monthlyTax)} грн.
 Ваша компенсація на місяць - ${formatNumbers(whiteCompensation)} грн.
 
 Дякую, звертайтесь ще!`
