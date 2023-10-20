@@ -23,7 +23,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          cd /root/projects/compliment-tg-bot
+          cd /root/projects/ua-taxes-tg-bot
           git pull origin master
           npm install
-          pm2 restart compliment-tg-bot
+          pm2 restart ua-taxes-tg-bot

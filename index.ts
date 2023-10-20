@@ -12,7 +12,5 @@ import './events';
 
 app.listen(appPort, () => {
   notifyAdmin(lib.botWokeUp());
-  console.log(`⚡⚡⚡ ComplimentBot Alive on PORT: ${appPort}`);
+  console.log(`⚡⚡⚡ UA Taxes Bot is Alive on PORT: ${appPort}`);
 });
-
-import './cron';
