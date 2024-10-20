@@ -1,6 +1,6 @@
 import { Message } from 'node-telegram-bot-api';
 import bot from '../bot';
-import { enPercent, esv, formatNumbers } from '../utils';
+import { enPercent, esv, formatNumbers, militaryPercent } from '../utils';
 
 const getTaxesCalculations = (msg: Message): void => {
   if (!msg.from) return;
