@@ -18,8 +18,9 @@ const getTaxesCalculations = (msg: Message): void => {
     return;
   }
 
-  const esvCalc = (compensation / 100) * Number(enPercent);
-  const monthlyTax = esvCalc + Number(esv);
+  const enCalc = (compensation / 100) * Number(enPercent);
+  const militaryTaxCalc = (compensation / 100) * Number(militaryPercent);
+  const monthlyTax = enCalc + Number(esv) + militaryTaxCalc;
   const whiteCompensation = compensation - monthlyTax;
 
   bot.sendMessage(
