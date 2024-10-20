@@ -27,7 +27,7 @@ const getTaxesCalculations = (msg: Message): void => {
     id,
     `Вітаю!
 
-ЄН - ${formatNumbers(esvCalc)} грн. (${enPercent}%).
+ЄН - ${formatNumbers(enCalc)} грн. (${enPercent}%).
 ЄСВ - ${formatNumbers(Number(esv))} грн.
 Військовий збір - ${formatNumbers(Number(militaryTaxCalc))} грн. (${militaryPercent}%).
 
