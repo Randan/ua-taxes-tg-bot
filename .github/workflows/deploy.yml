@@ -36,6 +36,5 @@ jobs:
           source ~/.nvm/nvm.sh
           npm ci
           npm run build
-          pm2 delete ua-taxes-tg-bot 2>/dev/null || true
-          pm2 start npm --name "ua-taxes-tg-bot" -- start
+          pm2 restart ua-taxes-tg-bot 2>/dev/null || pm2 start npm --name "ua-taxes-tg-bot" -- start
           pm2 save
