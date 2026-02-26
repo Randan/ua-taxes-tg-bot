@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import type { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 export function formatNumbers(number: number): string {
   return number.toLocaleString('en-US', { maximumFractionDigits: 2 });

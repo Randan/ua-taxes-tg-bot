@@ -1,7 +1,7 @@
 import { Command, Ctx, Update } from 'nestjs-telegraf';
 import type { Context } from 'telegraf';
 
-import type { TaxesService } from './taxes.service';
+import { TaxesService } from './taxes.service';
 
 @Update()
 export class TaxesHandler {
