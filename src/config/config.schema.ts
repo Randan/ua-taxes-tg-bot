@@ -21,9 +21,7 @@ function requireKey(config: Record<string, unknown>, key: string): string {
   return value;
 }
 
-export function configValidationSchema(
-  config: Record<string, unknown>,
-): EnvConfig {
+export function configValidationSchema(config: Record<string, unknown>): EnvConfig {
   const port = Number(get(config, 'PORT'));
   const portFinal = Number.isNaN(port) || port <= 0 ? 3000 : port;
 

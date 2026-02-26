@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 
 export function formatNumbers(number: number): string {
   return number.toLocaleString('en-US', { maximumFractionDigits: 2 });
@@ -41,9 +41,7 @@ export class TaxesService {
 
     const enPercent = Number(this.config.get<string>('TAX_EN_PERCENT'));
     const esv = Number(this.config.get<string>('TAX_ESV'));
-    const militaryPercent = Number(
-      this.config.get<string>('TAX_MILITARY_PERCENT'),
-    );
+    const militaryPercent = Number(this.config.get<string>('TAX_MILITARY_PERCENT'));
 
     const en = (compensationUah / 100) * enPercent;
     const military = (compensationUah / 100) * militaryPercent;

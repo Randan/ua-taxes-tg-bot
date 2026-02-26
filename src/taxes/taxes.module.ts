@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TaxesService } from './taxes.service';
+
 import { TaxesHandler } from './taxes.handler';
+import { TaxesService } from './taxes.service';
 
 @Module({
   providers: [TaxesService, TaxesHandler],
