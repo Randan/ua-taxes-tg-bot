@@ -1,3 +1,6 @@
+import type { RawEnv } from '@randan/tg-bot-kit';
+import { envPort, envString, requireEnv } from '@randan/tg-bot-kit';
+
 export interface EnvConfig {
   BOT_TOKEN: string;
   PORT: number;
@@ -6,32 +9,28 @@ export interface EnvConfig {
   TAX_EN_PERCENT: string;
   TAX_ESV: string;
   TAX_MILITARY_PERCENT: string;
+  LOG_LEVEL?: string;
 }
 
-function get(config: Record<string, unknown>, key: string): string | undefined {
-  const v = config[key];
-  return v === undefined ? undefined : String(v).trim() || undefined;
-}
-
-function requireKey(config: Record<string, unknown>, key: string): string {
-  const value = get(config, key);
-  if (value === undefined || value === '') {
-    throw new Error(`Missing required env: ${key}`);
+/** A non-negative number, kept as the string the env had ("5", "1902.34"). */
+function requireRate(env: RawEnv, key: string): string {
+  const value = requireEnv(env, key);
+  const number = Number(value);
+  if (!Number.isFinite(number) || number < 0) {
+    throw new Error(`${key} must be a non-negative number, got "${value}"`);
   }
   return value;
 }
 
-export function configValidationSchema(config: Record<string, unknown>): EnvConfig {
-  const port = Number(get(config, 'PORT'));
-  const portFinal = Number.isNaN(port) || port <= 0 ? 3000 : port;
-
+export function configValidationSchema(env: RawEnv): EnvConfig {
   return {
-    BOT_TOKEN: requireKey(config, 'BOT_TOKEN'),
-    PORT: portFinal,
-    NODE_ENV: get(config, 'NODE_ENV') || 'production',
-    ADMIN_TELEGRAM_ID: get(config, 'ADMIN_TELEGRAM_ID'),
-    TAX_EN_PERCENT: requireKey(config, 'TAX_EN_PERCENT'),
-    TAX_ESV: requireKey(config, 'TAX_ESV'),
-    TAX_MILITARY_PERCENT: requireKey(config, 'TAX_MILITARY_PERCENT'),
+    BOT_TOKEN: requireEnv(env, 'BOT_TOKEN'),
+    PORT: envPort(env),
+    NODE_ENV: envString(env, 'NODE_ENV') || 'production',
+    ADMIN_TELEGRAM_ID: envString(env, 'ADMIN_TELEGRAM_ID'),
+    TAX_EN_PERCENT: requireRate(env, 'TAX_EN_PERCENT'),
+    TAX_ESV: requireRate(env, 'TAX_ESV'),
+    TAX_MILITARY_PERCENT: requireRate(env, 'TAX_MILITARY_PERCENT'),
+    LOG_LEVEL: envString(env, 'LOG_LEVEL'),
   };
 }

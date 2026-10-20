@@ -1,12 +1,23 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        # shown by /diag; the deploy passes the commit being deployed
+        GIT_SHA: ${GIT_SHA:-unknown}
     container_name: ua-taxes-tg-bot
     env_file: .env
     network_mode: host
     restart: unless-stopped
+    healthcheck:
+      # GET /health from @randan/tg-bot-kit: 503 when a registered check fails
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:$$PORT/health >/dev/null || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     logging:
-      driver: json-file
+      # journald keeps the logs across container re-creation on deploy; it is capped at 200M
+      driver: journald
       options:
-        max-size: "10m"
-        max-file: "3"
+        tag: ua-taxes-tg-bot

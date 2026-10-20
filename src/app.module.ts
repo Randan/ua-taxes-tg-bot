@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { BotKitModule } from '@randan/tg-bot-kit';
 import { LoggerModule, NotifyAdminModule } from '@randan/tg-logger';
 
-import { HealthModule } from './common/health/health.module';
 import { configValidationSchema } from './config/config.schema';
+import { BOT_COMMANDS } from './taxes/bot-commands';
 import { TelegramModule } from './telegram/telegram.module';
 
 @Module({
@@ -14,7 +15,8 @@ import { TelegramModule } from './telegram/telegram.module';
     }),
     LoggerModule,
     NotifyAdminModule,
-    HealthModule,
+    // GET /health, the admin /diag and the command menu
+    BotKitModule.forRoot({ name: 'ua-taxes-tg-bot', commands: BOT_COMMANDS }),
     TelegramModule,
   ],
 })
